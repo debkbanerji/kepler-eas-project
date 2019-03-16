@@ -54,9 +54,11 @@ export class HomeComponent implements OnInit {
 
     initializePlot() {
         const component = this;
+        const containerWidth = document.getElementById('d3-container').offsetWidth * 0.95;
+        const containerHeight = containerWidth;
         const margin = {top: 20, right: 20, bottom: 30, left: 40},
-            width = 500 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+            width = containerWidth - margin.left - margin.right,
+            height = containerHeight - margin.top - margin.bottom;
 
         // setup x
         const xValue = function (d) {
