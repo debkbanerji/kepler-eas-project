@@ -14,6 +14,9 @@ export class HomeComponent implements OnInit {
 
     isDarkTheme: boolean = false;
     showParticles: boolean = false;
+    svg: any;
+    xMap: any;
+    yMap: any;
 
     constructor(public dialog: MatDialog,
                 private router: Router,
@@ -26,7 +29,8 @@ export class HomeComponent implements OnInit {
         component.route.queryParams.subscribe(params => {
             component.isDarkTheme = (params['dark-mode'] == 'true');
         });
-        this.initializePlot();
+        component.initializePlot();
+        component.addPlanet("Earth", 0.5)
     }
 
     onDarkModeChange() {
@@ -46,30 +50,33 @@ export class HomeComponent implements OnInit {
     }
 
     initializePlot() {
+        const component = this;
         const margin = {top: 20, right: 20, bottom: 30, left: 40},
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
         // setup x
         const xValue = function (d) {
-                return d.Calories;
+                return d["orbitalPeriod"];
             }, // data -> value
             xScale = d3.scaleLinear().range([0, width]), // value -> display
-            xMap = function (d) {
-                return xScale(xValue(d));
-            }, // data -> display
             xAxis = d3.axisBottom()
                 .scale(xScale);
+        component.xMap = function (d) {
+            return xScale(xValue(d));
+        }; // data -> display
+
         // setup y
         const yValue = function (d) {
-                return d["Orbital Period"];
+                return d["orbitalPeriod"];
             }, // data -> value
             yScale = d3.scaleLinear().range([height, 0]), // value -> display
-            yMap = function (d) {
-                return yScale(yValue(d));
-            }, // data -> display
             yAxis = d3.axisLeft()
                 .scale(yScale);
+        component.yMap = function (d) {
+            return yScale(yValue(d));
+        }; // data -> display
+
 
         // setup fill color
         const cValue = function (d) {
@@ -93,7 +100,7 @@ export class HomeComponent implements OnInit {
             .attr("x", width)
             .attr("y", -6)
             .style("text-anchor", "end")
-            .text("Radius of Orbit");
+            .text("Orbital Distance (AU)");
 
         // y-axis
         svg.append("g")
@@ -105,7 +112,7 @@ export class HomeComponent implements OnInit {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Orbital Period");
+            .text("Orbital Period (Years)");
 
         // draw legend
         const legend = svg.selectAll(".legend")
@@ -131,7 +138,42 @@ export class HomeComponent implements OnInit {
             .style("text-anchor", "end")
             .text(function (d) {
                 return d;
+            });
+
+        this.svg = svg;
+    }
+
+    addPlanet(planetName, orbitalDistance) {
+        const component = this;
+        const orbitalPeriod = this.getOrbitalPeriod(orbitalDistance);
+
+        const data = [
+            {
+                orbitalPeriod: orbitalPeriod,
+                orbitalDistance: orbitalDistance
+            }
+        ];
+
+        console.log(data[0]);
+
+        component.svg.selectAll("dot")
+            .data(data)
+            .enter().append("circle")
+            .attr("r", 3.5)
+            .attr("cx", function (d) {
+                return component.xMap(d);
             })
+            .attr("cy", function (d) {
+                return component.yMap(d);
+            });
+    }
+
+    getOrbitalPeriod(orbitalDistance) {
+        return Math.pow(orbitalDistance, 3 / 2)
+    }
+
+    getOrbitalDistance(orbitalPeriod) {
+        return Math.pow(orbitalPeriod, 2 / 3)
     }
 
 }
