@@ -1,0 +1,17 @@
+<div [ngClass]="{'dark-theme': isDarkTheme}" class="main-content-container">
+    <div [ngClass]="{'dark-background': isDarkTheme}"
+         id="particles-js-target"></div>
+    <div class="row">
+        <div class="col-xs-12" id="init-app-container">
+            TODO: Implement App
+            <br>
+            <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
+                Dark Mode
+            </mat-slide-toggle>
+            <br>
+            <mat-slide-toggle [(ngModel)]="showParticles" class="init-slider" (change)="toggleParticles()">
+                Particle Effects
+            </mat-slide-toggle>
+        </div>
+    </div>
+</div>
