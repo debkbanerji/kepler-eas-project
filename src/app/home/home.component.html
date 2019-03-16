@@ -2,16 +2,20 @@
     <div [ngClass]="{'dark-background': isDarkTheme}"
          id="particles-js-target"></div>
     <div class="row">
-        <div class="col-xs-12" id="init-app-container">
-            TODO: Implement App
-            <br>
-            <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
-                Dark Mode
-            </mat-slide-toggle>
-            <br>
-            <mat-slide-toggle [(ngModel)]="showParticles" class="init-slider" (change)="toggleParticles()">
-                Particle Effects
-            </mat-slide-toggle>
+        <div class="col-xs-12" id="app-container">
+            <mat-card id="init-app-card">
+                <h1 class="init-main-header">Kepler's Third Law</h1>
+                <mat-slide-toggle [(ngModel)]="showParticles" class="init-slider" (change)="toggleParticles()">
+                    Particle Effects
+                </mat-slide-toggle>
+                &nbsp;
+                <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
+                    Dark Mode
+                </mat-slide-toggle>
+            </mat-card>
+            <mat-card id="plot-card">
+                <div id="d3-target"></div>
+            </mat-card>
         </div>
     </div>
 </div>
