@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
+import {forEach} from "@angular/router/src/utils/collection";
 
 declare let particlesJS: any;
 declare let d3: any;
@@ -30,7 +31,9 @@ export class HomeComponent implements OnInit {
             component.isDarkTheme = (params['dark-mode'] == 'true');
         });
         component.initializePlot();
-        component.addPlanet("Earth", 0.5)
+        [0.5,1,2,3,4,5,6,7,8,9].forEach(function(dist) {
+            component.addPlanet("Earth", dist)
+        });
     }
 
     onDarkModeChange() {
@@ -52,14 +55,14 @@ export class HomeComponent implements OnInit {
     initializePlot() {
         const component = this;
         const margin = {top: 20, right: 20, bottom: 30, left: 40},
-            width = 960 - margin.left - margin.right,
+            width = 500 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
         // setup x
         const xValue = function (d) {
-                return d["orbitalPeriod"];
+                return d["orbitalDistance"];
             }, // data -> value
-            xScale = d3.scaleLinear().range([0, width]), // value -> display
+            xScale = d3.scaleLinear().domain([0,10]).range([0, width]), // value -> display
             xAxis = d3.axisBottom()
                 .scale(xScale);
         component.xMap = function (d) {
@@ -70,7 +73,7 @@ export class HomeComponent implements OnInit {
         const yValue = function (d) {
                 return d["orbitalPeriod"];
             }, // data -> value
-            yScale = d3.scaleLinear().range([height, 0]), // value -> display
+            yScale = d3.scaleLinear().domain([0,30]).range([height, 0]), // value -> display
             yAxis = d3.axisLeft()
                 .scale(yScale);
         component.yMap = function (d) {
@@ -153,8 +156,6 @@ export class HomeComponent implements OnInit {
                 orbitalDistance: orbitalDistance
             }
         ];
-
-        console.log(data[0]);
 
         component.svg.selectAll("dot")
             .data(data)
