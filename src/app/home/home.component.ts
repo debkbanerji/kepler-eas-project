@@ -195,8 +195,8 @@ export class HomeComponent implements OnInit {
                 component.tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                component.tooltip.html(d["planetName"] + "<br/><small>Orbital Distance: " + d["orbitalDistance"].toFixed(3)
-                    + " AU</small><br/><small>Orbital Period: " + d["orbitalPeriod"].toFixed(3) + " Years</small>")
+                component.tooltip.html(d["planetName"] + "<br/><small>Orbital Distance: " + component.toFixedIfNecessary(d["orbitalDistance"])
+                    + " AU</small><br/><small>Orbital Period: " + component.toFixedIfNecessary(d["orbitalPeriod"]) + " Years</small>")
                     .style("left", (d3.event.pageX + 12) + "px")
                     .style("top", (d3.event.pageY - 34) + "px");
             })
@@ -217,7 +217,6 @@ export class HomeComponent implements OnInit {
 
     syncNewOrbitalPeriod() {
         let orbitalPeriod = this.getOrbitalPeriod(this.newPlanetOrbitalDistance);
-        console.log('sync orbitalPeriod');
         if (this.newPlanetOrbitalPeriod !== orbitalPeriod) {
             this.newPlanetOrbitalPeriod = orbitalPeriod;
         }
@@ -225,10 +224,12 @@ export class HomeComponent implements OnInit {
 
     syncNewOrbitalDistance() {
         let orbitalDistance = this.getOrbitalDistance(this.newPlanetOrbitalPeriod);
-        console.log('sync orbitalDistance');
         if (this.newPlanetOrbitalDistance !== orbitalDistance) {
             this.newPlanetOrbitalDistance = orbitalDistance;
         }
     }
 
+    toFixedIfNecessary(value) {
+        return +parseFloat(value).toFixed(2);
+    }
 }

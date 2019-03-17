@@ -25,19 +25,19 @@
                                 min="0.5" max="{{maxOrbitalDistance - 0.3}}" step="0.1" value="1"
                                 (change)="syncNewOrbitalPeriod()">
                     </mat-slider>
-                    <small>Orbital Distance: {{newPlanetOrbitalDistance}} AU</small>&nbsp;
+                    <small>Orbital Distance: {{toFixedIfNecessary(newPlanetOrbitalDistance)}} AU</small>&nbsp;
                     <mat-slider [(ngModel)]="newPlanetOrbitalPeriod" class="planet-creation-slider"
                                 min="{{getOrbitalPeriod(0.5)}}" max="{{maxOrbitalPeriod - 0.3}}" step="0.1" value="1"
                                 (change)="syncNewOrbitalDistance()">
                     </mat-slider>
-                    <small>Orbital Period: {{newPlanetOrbitalPeriod}} Years</small>&nbsp;
+                    <small>Orbital Period: {{toFixedIfNecessary(newPlanetOrbitalPeriod)}} Years</small>&nbsp;
                 </mat-card>
                 <div *ngFor="let planet of planets; let i = index">
                     <mat-card class="planet-container">
                         <b class="planet-name">{{planet['planetName']}}</b>
                         <br>
-                        <small>Orbital Distance {{planet["orbitalDistance"].toFixed(3)}} AU,</small>&nbsp;
-                        <small>Orbital Period {{planet["orbitalPeriod"].toFixed(3)}} Years</small>
+                        <small>Orbital Distance {{toFixedIfNecessary(planet["orbitalDistance"])}} AU,</small>&nbsp;
+                        <small>Orbital Period {{toFixedIfNecessary(planet["orbitalPeriod"])}} Years</small>
                     </mat-card>
                 </div>
             </mat-card>
