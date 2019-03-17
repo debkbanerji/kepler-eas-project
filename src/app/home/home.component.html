@@ -12,6 +12,7 @@
                 <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
                     Night Mode
                 </mat-slide-toggle>
+                <h1>{{ totalPageViews | async | json }}</h1>, <h1>{{ totalPlanetsCreated | async | json }}</h1>
             </mat-card>
         </div>
         <div class="col-12 col-md-6 interaction-container">

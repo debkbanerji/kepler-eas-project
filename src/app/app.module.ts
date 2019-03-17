@@ -18,8 +18,11 @@ import {
 } from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AngularFireModule} from '@angular/fire';
 
 import 'hammerjs';
+import {environment} from "../environments/environment";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -47,7 +50,9 @@ const routes: Routes = [
         MatSnackBarModule,
         MatTableModule,
         MatTooltipModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
     ],
     providers: [],
     bootstrap: [AppComponent]

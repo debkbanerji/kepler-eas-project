@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AngularFireDatabase} from '@angular/fire/database';
+import {Observable} from "rxjs";
 
 declare let particlesJS: any;
 declare let d3: any;
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-home',
@@ -29,10 +32,19 @@ export class HomeComponent implements OnInit {
     newPlanetOrbitalPeriod: number = this.getOrbitalPeriod(this.newPlanetOrbitalDistance);
     newPlanetsCounter = 0;
 
+    totalPageViews: Observable<any> = null;
+    totalPlanetsCreated: Observable<any> = null;
+
     constructor(public dialog: MatDialog,
                 private router: Router,
                 private route: ActivatedRoute,
+                db: AngularFireDatabase
     ) {
+        this.totalPageViews = db.object('total-views').valueChanges();
+        this.totalPlanetsCreated = db.object('total-planets-created').valueChanges();
+        firebase.database().ref('total-views').transaction(function (val) {
+            return val + 1;
+        });
     }
 
     ngOnInit() {
@@ -170,6 +182,9 @@ export class HomeComponent implements OnInit {
         if (!planetExists) {
             componenent.newPlanetsCounter = componenent.newPlanetsCounter + 1;
             componenent.addPlanet('My Planet ' + componenent.newPlanetsCounter, componenent.newPlanetOrbitalDistance);
+            firebase.database().ref('total-planets-created').transaction(function (val) {
+                return val + 1;
+            });
         }
     }
 
