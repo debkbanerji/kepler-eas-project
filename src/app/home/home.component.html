@@ -14,16 +14,25 @@
                 </mat-slide-toggle>
             </mat-card>
         </div>
+        <div class="col-12 col-md-6 interaction-container">
+            <mat-card id="planets-card">
+                <h1 id="planets-header">Showing {{planets.length}} Planet<span *ngIf="planets.length !== 1">s</span></h1>
+                    <div *ngFor="let planet of planets; let i = index">
+                        <mat-card class="planet-container">
+                            <b>{{planet['planetName']}}</b>
+                            <br>
+                            <small>Orbital Distance (AU): {{planet["orbitalDistance"].toFixed(3)}}</small>
+                            <br>
+                            <small>Orbital Period (Years): {{planet["orbitalPeriod"].toFixed(3)}}</small>
+                        </mat-card>
+                    </div>
+            </mat-card>
+        </div>
         <div class="col col-12 col-md-6 interaction-container">
             <mat-card id="plot-card">
                 <div id="d3-container">
                     <div id="d3-target"></div>
                 </div>
-            </mat-card>
-        </div>
-        <div class="col-12 col-md-6 interaction-container">
-            <mat-card id="planets-card">
-                <h1 id="planets-header">Planets</h1>
             </mat-card>
         </div>
     </div>

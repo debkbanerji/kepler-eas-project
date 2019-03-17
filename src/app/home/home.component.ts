@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
-import {forEach} from "@angular/router/src/utils/collection";
 
 declare let particlesJS: any;
 declare let d3: any;
@@ -23,6 +22,7 @@ export class HomeComponent implements OnInit {
     tooltip: any;
     maxOrbitalDistance = 10;
     maxOrbitalPeriod = this.getOrbitalPeriod(this.maxOrbitalDistance);
+    planets: Array<any> = [];
 
     constructor(public dialog: MatDialog,
                 private router: Router,
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
         [0.5,1,2,3,4,5,6,7,8,9].forEach(function(dist) {
             component.addPlanet("Earth", dist)
         });
+        component.addPlanet("Earth",1);
     }
 
     onDarkModeChange() {
@@ -161,12 +162,16 @@ export class HomeComponent implements OnInit {
         const component = this;
         const orbitalPeriod = this.getOrbitalPeriod(orbitalDistance);
 
+        let planet = {
+            planetName: planetName,
+            orbitalPeriod: orbitalPeriod,
+            orbitalDistance: orbitalDistance
+        };
+
+        component.planets.push(planet);
+
         const data = [
-            {
-                planetName: planetName,
-                orbitalPeriod: orbitalPeriod,
-                orbitalDistance: orbitalDistance
-            }
+            planet
         ];
 
         component.svg.selectAll("dot")
@@ -184,8 +189,8 @@ export class HomeComponent implements OnInit {
                 component.tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                component.tooltip.html(d["planetName"] + "<br/>Orbital Distance (AU): " + d["orbitalDistance"]
-                    + "<br/>Orbital Period (Years): " + d["orbitalPeriod"])
+                component.tooltip.html(d["planetName"] + "<br/><small>Orbital Distance (AU): " + d["orbitalDistance"].toFixed(3)
+                    + "</small><br/><small>Orbital Period (Years): " + d["orbitalPeriod"].toFixed(3)+"</small>")
                     .style("left", (d3.event.pageX + 12) + "px")
                     .style("top", (d3.event.pageY - 34) + "px");
             })

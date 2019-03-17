@@ -35,6 +35,12 @@
 
 #planets-header {
     font-size: 24px;
+    padding-left: 2px;
+}
+
+.planet-container {
+    margin: 2px;
+    padding: 5px;
 }
 
 #d3-container {
