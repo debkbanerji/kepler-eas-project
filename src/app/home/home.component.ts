@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
 
     newPlanetOrbitalDistance: number = 1;
     newPlanetOrbitalPeriod: number = 1;
+    newPlanetsCounter = 0;
 
     constructor(public dialog: MatDialog,
                 private router: Router,
@@ -40,9 +41,6 @@ export class HomeComponent implements OnInit {
             component.isDarkTheme = (params['dark-mode'] == 'true');
         });
         component.initializePlot();
-        [0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(function (dist) {
-            component.addPlanet("Earth", dist)
-        });
         component.addPlanet("Earth", 1);
     }
 
@@ -160,6 +158,19 @@ export class HomeComponent implements OnInit {
             .style("opacity", 0);
 
         component.svg = svg;
+    }
+
+    createUserPlanet() {
+        const componenent = this;
+        const planetDistance = componenent.newPlanetOrbitalDistance;
+        let planetExists = false;
+        for (let i = 0; i < componenent.planets.length; i++) {
+            planetExists = planetExists || (componenent.planets[i].orbitalDistance === planetDistance);
+        }
+        if (!planetExists) {
+            componenent.newPlanetsCounter = componenent.newPlanetsCounter + 1;
+            componenent.addPlanet('My Planet ' + componenent.newPlanetsCounter, componenent.newPlanetOrbitalDistance);
+        }
     }
 
     addPlanet(planetName, orbitalDistance) {

@@ -31,6 +31,8 @@
                                 (change)="syncNewOrbitalDistance()">
                     </mat-slider>
                     <small>Orbital Period: {{toFixedIfNecessary(newPlanetOrbitalPeriod)}} Years</small>&nbsp;
+                    <br>
+                    <button mat-raised-button color="primary" (click)="createUserPlanet()">Create Planet!</button>
                 </mat-card>
                 <div *ngFor="let planet of planets; let i = index">
                     <mat-card class="planet-container">
