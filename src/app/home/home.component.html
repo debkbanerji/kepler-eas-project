@@ -44,6 +44,9 @@
                 <div *ngFor="let planet of planets; let i = index">
                     <mat-card class="planet-container">
                         <b class="planet-name">{{planet['planetName']}}</b>
+                        <button mat-button color="warn" (click)="removePlanet(i)" class="delete-planet-button">
+                            Delete
+                        </button>
                         <br>
                         <small>Orbital Distance {{toFixedIfNecessary(planet["orbitalDistance"])}} AU,</small>&nbsp;
                         <small>Orbital Period {{toFixedIfNecessary(planet["orbitalPeriod"])}} Years</small>

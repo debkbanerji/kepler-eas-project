@@ -62,6 +62,12 @@
     padding: 5px;
 }
 
+.delete-planet-button {
+    float: right;
+    height: 28px;
+    line-height: 14px;
+}
+
 #d3-container {
     width: 100%;
 }

@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
             component.isDarkTheme = (params['dark-mode'] == 'true');
         });
         component.initializePlot();
-        component.addPlanet("Earth", 1);
+        component.addPlanet("Earth", 1, -1);
     }
 
     onDarkModeChange() {
@@ -181,21 +181,22 @@ export class HomeComponent implements OnInit {
         }
         if (!planetExists) {
             componenent.newPlanetsCounter = componenent.newPlanetsCounter + 1;
-            componenent.addPlanet('My Planet ' + componenent.newPlanetsCounter, componenent.newPlanetOrbitalDistance);
+            componenent.addPlanet('My Planet ' + componenent.newPlanetsCounter, componenent.newPlanetOrbitalDistance, componenent.newPlanetsCounter);
             firebase.database().ref('total-planets-created').transaction(function (val) {
                 return val + 1;
             });
         }
     }
 
-    addPlanet(planetName, orbitalDistance) {
+    addPlanet(planetName, orbitalDistance, planetId) {
         const component = this;
         const orbitalPeriod = this.getOrbitalPeriod(orbitalDistance);
 
         let planet = {
             planetName: planetName,
             orbitalPeriod: orbitalPeriod,
-            orbitalDistance: orbitalDistance
+            orbitalDistance: orbitalDistance,
+            planetId: planetId
         };
 
         component.planets.push(planet);
@@ -207,6 +208,7 @@ export class HomeComponent implements OnInit {
         component.svg.selectAll("dot")
             .data(data)
             .enter().append("circle")
+            .attr("id", "planet-" + planetId)
             .attr("r", 5)
             .attr("cx", function (d) {
                 return component.xMap(d);
@@ -231,6 +233,13 @@ export class HomeComponent implements OnInit {
                     .duration(500)
                     .style("opacity", 0);
             });
+    }
+
+    removePlanet(index) {
+        const component = this;
+        const planetId = component.planets[index]['planetId'];
+        component.planets.splice(index, 1);
+        d3.select("#planet-" + planetId).remove();
     }
 
     getOrbitalPeriod(orbitalDistance) {
