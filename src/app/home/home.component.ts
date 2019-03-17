@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
     maxOrbitalPeriod = this.getOrbitalPeriod(this.maxOrbitalDistance);
     planets: Array<any> = [];
 
-    newPlanetOrbitalDistance: number = 1;
-    newPlanetOrbitalPeriod: number = 1;
+    newPlanetOrbitalDistance: number = 2;
+    newPlanetOrbitalPeriod: number = this.getOrbitalPeriod(this.newPlanetOrbitalDistance);
     newPlanetsCounter = 0;
 
     constructor(public dialog: MatDialog,

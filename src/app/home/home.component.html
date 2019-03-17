@@ -10,7 +10,7 @@
                 </mat-slide-toggle>
                 &nbsp;
                 <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
-                    Dark Mode
+                    Night Mode
                 </mat-slide-toggle>
             </mat-card>
         </div>
@@ -22,15 +22,16 @@
                     <h2 id="create-planet-header">Create Planet
                     </h2>
                     <mat-slider [(ngModel)]="newPlanetOrbitalDistance" class="planet-creation-slider"
-                                min="0.5" max="{{maxOrbitalDistance - 0.3}}" step="0.1" value="1"
+                                min="0" max="{{maxOrbitalDistance - 0.3}}" step="0.1" value="1"
                                 (change)="syncNewOrbitalPeriod()">
                     </mat-slider>
                     <small>Orbital Distance: {{toFixedIfNecessary(newPlanetOrbitalDistance)}} AU</small>&nbsp;
                     <mat-slider [(ngModel)]="newPlanetOrbitalPeriod" class="planet-creation-slider"
-                                min="{{getOrbitalPeriod(0.5)}}" max="{{maxOrbitalPeriod - 0.3}}" step="0.1" value="1"
+                                min="0" max="{{maxOrbitalPeriod - 0.3}}" step="0.1" value="1"
                                 (change)="syncNewOrbitalDistance()">
                     </mat-slider>
                     <small>Orbital Period: {{toFixedIfNecessary(newPlanetOrbitalPeriod)}} Years</small>&nbsp;
+                    <br>
                     <br>
                     <button mat-raised-button color="primary" (click)="createUserPlanet()">Create Planet!</button>
                 </mat-card>
