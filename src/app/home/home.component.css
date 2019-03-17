@@ -16,16 +16,16 @@
     width: 100%;
 }
 
-#init-app-card, #plot-card {
+#init-app-card, #planets-card {
     width: 100%;
 }
 
 #plot-card {
-    margin: 0 10px 10px;
+    margin: 0 10px 10px 20px;
 }
 
 #planets-card {
-    margin: 0 10px 10px 20px;
+    margin: 0 10px 10px;
 }
 
 #init-main-header {
