@@ -66,6 +66,11 @@
     width: 100%;
 }
 
+#hover-instruction {
+    text-align: center;
+    width: 100%;
+}
+
 .dot {
     stroke: #8d66ff;
 }
