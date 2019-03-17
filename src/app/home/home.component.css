@@ -10,24 +10,31 @@
     width: 100%;
 }
 
-#interaction-container {
-    margin: 0 10px 10px;
+.interaction-container {
+    margin-top: 0;
     padding: 0;
     width: 100%;
 }
 
-#init-app-card #plot-card {
+#init-app-card, #plot-card {
     width: 100%;
 }
 
+#plot-card {
+    margin: 0 10px 10px;
+}
 
-.init-main-header {
+#planets-card {
+    margin: 0 10px 10px 20px;
+}
+
+#init-main-header {
     margin-top: 6px;
     font-size: 28px;
 }
 
-#plot-card {
-    margin-top: 5px;
+#planets-header {
+    font-size: 24px;
 }
 
 #d3-container {
