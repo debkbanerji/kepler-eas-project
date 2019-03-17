@@ -5,7 +5,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from './home/home.component';
 import {
     MatButtonModule,
-    MatCardModule, MatDialogModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
@@ -40,6 +42,7 @@ const routes: Routes = [
         FormsModule,
         MatButtonModule,
         MatCardModule,
+        MatChipsModule,
         MatDialogModule,
         MatFormFieldModule,
         MatProgressSpinnerModule,

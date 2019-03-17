@@ -33,6 +33,10 @@
     font-size: 28px;
 }
 
+#stats-container {
+    float: right;
+}
+
 #planets-header {
     font-size: 24px;
     padding-left: 2px;

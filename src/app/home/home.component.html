@@ -5,14 +5,19 @@
         <div class="col-xs-12" id="header-container">
             <mat-card id="init-app-card">
                 <h1 id="init-main-header">Kepler's Third Law</h1>
-                <mat-slide-toggle [(ngModel)]="showParticles" class="init-slider" (change)="toggleParticles()">
-                    Particle Effects
-                </mat-slide-toggle>
-                &nbsp;
+                <!--<mat-slide-toggle [(ngModel)]="showParticles" class="init-slider" (change)="toggleParticles()">-->
+                <!--Particle Effects-->
+                <!--</mat-slide-toggle>-->
+                <!--&nbsp;-->
                 <mat-slide-toggle [(ngModel)]="isDarkTheme" class="init-slider" (change)="onDarkModeChange()">
                     Night Mode
                 </mat-slide-toggle>
-                <h1>{{ totalPageViews | async | json }}</h1>, <h1>{{ totalPlanetsCreated | async | json }}</h1>
+                <span id="stats-container">
+                    <mat-chip-list>
+                        <mat-chip color="primary" selected>{{(totalPageViews | async) || '?'}} Total Views</mat-chip>
+                        <mat-chip color="primary" selected>{{(totalPlanetsCreated | async) || '?'}} Total Planets Created</mat-chip>
+                    </mat-chip-list>
+                </span>
             </mat-card>
         </div>
         <div class="col-12 col-md-6 interaction-container">
