@@ -18,6 +18,11 @@ export class HomeComponent implements OnInit {
     svg: any;
     xMap: any;
     yMap: any;
+    xValue: any;
+    yValue: any;
+    tooltip: any;
+    maxOrbitalDistance = 10;
+    maxOrbitalPeriod = this.getOrbitalPeriod(this.maxOrbitalDistance);
 
     constructor(public dialog: MatDialog,
                 private router: Router,
@@ -61,25 +66,25 @@ export class HomeComponent implements OnInit {
             height = containerHeight - margin.top - margin.bottom;
 
         // setup x
-        const xValue = function (d) {
+        component.xValue = function (d) {
                 return d["orbitalDistance"];
-            }, // data -> value
-            xScale = d3.scaleLinear().domain([0,10]).range([0, width]), // value -> display
+            }; // data -> value
+            const xScale = d3.scaleLinear().domain([0,this.maxOrbitalDistance]).range([0, width]), // value -> display
             xAxis = d3.axisBottom()
                 .scale(xScale);
         component.xMap = function (d) {
-            return xScale(xValue(d));
+            return xScale(component.xValue(d));
         }; // data -> display
 
         // setup y
-        const yValue = function (d) {
+        component.yValue = function (d) {
                 return d["orbitalPeriod"];
-            }, // data -> value
-            yScale = d3.scaleLinear().domain([0,30]).range([height, 0]), // value -> display
+            }; // data -> value
+            const yScale = d3.scaleLinear().domain([0,this.maxOrbitalPeriod]).range([height, 0]), // value -> display
             yAxis = d3.axisLeft()
                 .scale(yScale);
         component.yMap = function (d) {
-            return yScale(yValue(d));
+            return yScale(component.yValue(d));
         }; // data -> display
 
 
@@ -145,7 +150,11 @@ export class HomeComponent implements OnInit {
                 return d;
             });
 
-        this.svg = svg;
+        component.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        component.svg = svg;
     }
 
     addPlanet(planetName, orbitalDistance) {
@@ -154,6 +163,7 @@ export class HomeComponent implements OnInit {
 
         const data = [
             {
+                planetName: planetName,
                 orbitalPeriod: orbitalPeriod,
                 orbitalDistance: orbitalDistance
             }
@@ -162,12 +172,27 @@ export class HomeComponent implements OnInit {
         component.svg.selectAll("dot")
             .data(data)
             .enter().append("circle")
-            .attr("r", 3.5)
+            .attr("r", 5)
             .attr("cx", function (d) {
                 return component.xMap(d);
             })
             .attr("cy", function (d) {
                 return component.yMap(d);
+            })
+            .style("fill", function(d) { return '#ec407a';})
+            .on("mouseover", function(d) {
+                component.tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                component.tooltip.html(d["planetName"] + "<br/>Orbital Distance (AU): " + d["orbitalDistance"]
+                    + "<br/>Orbital Period (Years): " + d["orbitalPeriod"])
+                    .style("left", (d3.event.pageX + 12) + "px")
+                    .style("top", (d3.event.pageY - 34) + "px");
+            })
+            .on("mouseout", function(d) {
+                component.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
             });
     }
 

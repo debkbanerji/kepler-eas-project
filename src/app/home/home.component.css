@@ -34,3 +34,13 @@
     width: 100%;
 }
 
+.dot {
+    stroke: #8d66ff;
+}
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height: 28px;
+    pointer-events: none;
+}

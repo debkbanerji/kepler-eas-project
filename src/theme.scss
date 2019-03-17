@@ -25,6 +25,10 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
     background-color: #303030 !important;
 }
 
+.tooltip {
+    color: #ec407a;
+}
+
 #particles-js-target {
     display: block;
     width: 100%;
