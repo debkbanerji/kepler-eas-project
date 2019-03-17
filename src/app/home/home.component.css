@@ -11,8 +11,8 @@
 }
 
 .interaction-container {
+    padding: 10px;
     margin-top: 0;
-    padding: 0;
     width: 100%;
 }
 
@@ -20,13 +20,16 @@
     width: 100%;
 }
 
-#plot-card {
-    margin: 0 10px 10px 20px;
+#info-container {
+    margin: 10px;
+    width: 100%;
+    display: inline-block;
 }
 
-#planets-card {
-    margin: 0 10px 10px;
+.info-panel {
+    padding: 10px;
 }
+
 
 #init-main-header {
     margin-top: 6px;
@@ -57,7 +60,7 @@
     font-size: 14px;
 }
 
-.planet-container, #create-planet-card  {
+.planet-container, #create-planet-card {
     margin: 2px;
     padding: 5px;
 }

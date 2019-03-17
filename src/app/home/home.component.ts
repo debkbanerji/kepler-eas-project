@@ -35,6 +35,9 @@ export class HomeComponent implements OnInit {
     totalPageViews: Observable<any> = null;
     totalPlanetsCreated: Observable<any> = null;
 
+    keplerInfoPanelOpenState: boolean = false;
+    aboutPanelOpenState: boolean = false;
+
     constructor(public dialog: MatDialog,
                 private router: Router,
                 private route: ActivatedRoute,
