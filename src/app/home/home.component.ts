@@ -200,7 +200,7 @@ export class HomeComponent implements OnInit {
                 return component.yMap(d);
             })
             .style("fill", function (d) {
-                return '#ec407a';
+                return '#8e24aa';
             })
             .on("mouseover", function (d) {
                 component.tooltip.transition()
