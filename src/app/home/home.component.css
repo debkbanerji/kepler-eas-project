@@ -38,7 +38,22 @@
     padding-left: 2px;
 }
 
-.planet-container {
+#create-planet-header {
+    font-size: 18px;
+    margin: 0;
+}
+
+.planet-creation-slider {
+    width: 100%;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.planet-name {
+    font-size: 14px;
+}
+
+.planet-container, #create-planet-card  {
     margin: 2px;
     padding: 5px;
 }

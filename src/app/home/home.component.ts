@@ -20,9 +20,13 @@ export class HomeComponent implements OnInit {
     xValue: any;
     yValue: any;
     tooltip: any;
+
     maxOrbitalDistance = 10;
     maxOrbitalPeriod = this.getOrbitalPeriod(this.maxOrbitalDistance);
     planets: Array<any> = [];
+
+    newPlanetOrbitalDistance: number = 1;
+    newPlanetOrbitalPeriod: number = 1;
 
     constructor(public dialog: MatDialog,
                 private router: Router,
@@ -36,10 +40,10 @@ export class HomeComponent implements OnInit {
             component.isDarkTheme = (params['dark-mode'] == 'true');
         });
         component.initializePlot();
-        [0.5,1,2,3,4,5,6,7,8,9].forEach(function(dist) {
+        [0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(function (dist) {
             component.addPlanet("Earth", dist)
         });
-        component.addPlanet("Earth",1);
+        component.addPlanet("Earth", 1);
     }
 
     onDarkModeChange() {
@@ -68,9 +72,9 @@ export class HomeComponent implements OnInit {
 
         // setup x
         component.xValue = function (d) {
-                return d["orbitalDistance"];
-            }; // data -> value
-            const xScale = d3.scaleLinear().domain([0,this.maxOrbitalDistance]).range([0, width]), // value -> display
+            return d["orbitalDistance"];
+        }; // data -> value
+        const xScale = d3.scaleLinear().domain([0, this.maxOrbitalDistance]).range([0, width]), // value -> display
             xAxis = d3.axisBottom()
                 .scale(xScale);
         component.xMap = function (d) {
@@ -79,9 +83,9 @@ export class HomeComponent implements OnInit {
 
         // setup y
         component.yValue = function (d) {
-                return d["orbitalPeriod"];
-            }; // data -> value
-            const yScale = d3.scaleLinear().domain([0,this.maxOrbitalPeriod]).range([height, 0]), // value -> display
+            return d["orbitalPeriod"];
+        }; // data -> value
+        const yScale = d3.scaleLinear().domain([0, this.maxOrbitalPeriod]).range([height, 0]), // value -> display
             yAxis = d3.axisLeft()
                 .scale(yScale);
         component.yMap = function (d) {
@@ -184,17 +188,19 @@ export class HomeComponent implements OnInit {
             .attr("cy", function (d) {
                 return component.yMap(d);
             })
-            .style("fill", function(d) { return '#ec407a';})
-            .on("mouseover", function(d) {
+            .style("fill", function (d) {
+                return '#ec407a';
+            })
+            .on("mouseover", function (d) {
                 component.tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                component.tooltip.html(d["planetName"] + "<br/><small>Orbital Distance (AU): " + d["orbitalDistance"].toFixed(3)
-                    + "</small><br/><small>Orbital Period (Years): " + d["orbitalPeriod"].toFixed(3)+"</small>")
+                component.tooltip.html(d["planetName"] + "<br/><small>Orbital Distance: " + d["orbitalDistance"].toFixed(3)
+                    + " AU</small><br/><small>Orbital Period: " + d["orbitalPeriod"].toFixed(3) + " Years</small>")
                     .style("left", (d3.event.pageX + 12) + "px")
                     .style("top", (d3.event.pageY - 34) + "px");
             })
-            .on("mouseout", function(d) {
+            .on("mouseout", function (d) {
                 component.tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
@@ -207,6 +213,22 @@ export class HomeComponent implements OnInit {
 
     getOrbitalDistance(orbitalPeriod) {
         return Math.pow(orbitalPeriod, 2 / 3)
+    }
+
+    syncNewOrbitalPeriod() {
+        let orbitalPeriod = this.getOrbitalPeriod(this.newPlanetOrbitalDistance);
+        console.log('sync orbitalPeriod');
+        if (this.newPlanetOrbitalPeriod !== orbitalPeriod) {
+            this.newPlanetOrbitalPeriod = orbitalPeriod;
+        }
+    }
+
+    syncNewOrbitalDistance() {
+        let orbitalDistance = this.getOrbitalDistance(this.newPlanetOrbitalPeriod);
+        console.log('sync orbitalDistance');
+        if (this.newPlanetOrbitalDistance !== orbitalDistance) {
+            this.newPlanetOrbitalDistance = orbitalDistance;
+        }
     }
 
 }
