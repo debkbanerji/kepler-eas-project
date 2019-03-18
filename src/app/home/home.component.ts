@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 declare let particlesJS: any;
 declare let d3: any;
 import * as firebase from 'firebase';
+import {environment} from "../../environments/environment.prod";
 
 @Component({
     selector: 'app-home',
@@ -14,6 +15,8 @@ import * as firebase from 'firebase';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+    public version: string = environment.VERSION;
 
     isDarkTheme: boolean = false;
     showParticles: boolean = false;

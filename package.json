@@ -1,6 +1,6 @@
 {
     "name": "kepler-eas-project",
-    "version": "2019.3.16",
+    "version": "2019.3.17",
     "scripts": {
         "ng": "ng",
         "develop": "ng serve",
