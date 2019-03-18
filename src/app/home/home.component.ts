@@ -122,6 +122,24 @@ export class HomeComponent implements OnInit {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("font-size", "12")
+            .attr("text-anchor", "end")
+            .attr("x", width)
+            .attr("y", height - 6)
+            .text("Orbital Distance (AU)");
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("font-size", "12")
+            .attr("text-anchor", "end")
+            .attr("y", 6)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Orbital Period (Years)");
+
+
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
