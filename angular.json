@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "office-hours-queue": {
+        "kepler-eas-project": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
