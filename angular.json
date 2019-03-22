@@ -13,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/office-hours-queue",
+                        "outputPath": "dist/kepler-eas-project",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "office-hours-queue:build"
+                        "browserTarget": "kepler-eas-project:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "office-hours-queue:build:production"
+                            "browserTarget": "kepler-eas-project:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "office-hours-queue:build"
+                        "browserTarget": "kepler-eas-project:build"
                     }
                 },
                 "test": {
@@ -96,7 +96,7 @@
                 }
             }
         },
-        "office-hours-queue-e2e": {
+        "kepler-eas-project-e2e": {
             "root": "e2e/",
             "projectType": "application",
             "architect": {
@@ -104,11 +104,11 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "office-hours-queue:serve"
+                        "devServerTarget": "kepler-eas-project:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "office-hours-queue:serve:production"
+                            "devServerTarget": "kepler-eas-project:serve:production"
                         }
                     }
                 },
@@ -124,5 +124,5 @@
             }
         }
     },
-    "defaultProject": "office-hours-queue"
+    "defaultProject": "kepler-eas-project"
 }
